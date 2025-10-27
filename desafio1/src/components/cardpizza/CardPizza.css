@@ -1,0 +1,100 @@
+.card-pizza {
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s;
+  border: 1px solid rgb(235, 235, 235);
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-pizza:hover {
+  transform: translateY(-5px);
+}
+
+.card-pizza-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-pizza-body {
+  padding: 0;
+  text-align: center;
+  padding-bottom: 1rem;
+}
+
+.card-pizza-title {
+  text-align: left;
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
+  color: #474747;
+  border-bottom: 1px solid rgb(235, 235, 235);
+}
+
+.card-pizza-title h2 {
+  padding: 0;
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.card-pizza-ingredients {
+  list-style: none;
+  padding: 0;
+  padding-top: 0.5rem;
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+  border-bottom: 1px solid rgb(235, 235, 235);
+}
+
+.card-pizza-ingredients h3 {
+  margin: 0;
+  font-weight: 300;
+}
+
+.card-pizza-price {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+  font-weight: 600;
+  color: #474747;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.card-ver-mas {
+  background-color: white;
+  color: #272727;
+  border: 1px solid #272727;
+  padding: 0.3rem 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-size: 0.8rem;
+}
+
+.card-ver-mas:hover {
+  color: white;
+  background-color: #272727;
+}
+
+.card-pizza-btn {
+  background-color: #272727;
+  color: white;
+  border: none;
+  padding: 0.3rem 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-size: 0.8rem;
+}
+
+.card-pizza-btn:hover {
+  background-color: #e03e00;
+}

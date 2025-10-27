@@ -1,0 +1,5 @@
+.container_cards {
+    display: flex;
+    justify-content: space-evenly;
+    padding-block: 3rem;
+}
