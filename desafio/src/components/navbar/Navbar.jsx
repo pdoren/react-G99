@@ -7,8 +7,8 @@ const Navbar = () => {
   const token = false;
 
   return (
-    <nav class="navbar">
-      <div class="menu1">
+    <nav className="navbar">
+      <div className="menu1">
         <p>Pizzería Mamma Mía!</p>
         <ul>
           <li>🍕 Home</li>
@@ -16,7 +16,7 @@ const Navbar = () => {
           <li>{!token ? "🔐 Register": "🔒 Logout"}</li>
         </ul>
       </div>
-      <ul class="menu2">
+      <ul className="menu2">
         <li>🛒 Total: ${total.toLocaleString("es-CL")}</li>
       </ul>
     </nav>
