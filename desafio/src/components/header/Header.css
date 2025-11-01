@@ -2,20 +2,4 @@ header {
     background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
     url("../../../public/imgs/Header.jpg");
     background-size: cover;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 20dvh;
-}
-
-header * {
-    margin-block: 0;
-}
-
-header p {
-  border: none;
-  width: 70%;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid rgb(99, 99, 99);
 }

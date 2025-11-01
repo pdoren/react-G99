@@ -11,16 +11,18 @@ const Home = () => {
   return (
     <>
       <Header />
-      <div className="container_cards">
-        {pizzas.map((pizza) => (
-          <CardPizza
-            key={pizza.id}
-            name={pizza.name}
-            price={pizza.price}
-            ingredients={pizza.ingredients}
-            img={pizza.img}
-          />
-        ))}
+      <div className="container py-5">
+        <div className="row justify-content-evenly">
+          {pizzas.map((pizza) => (
+            <CardPizza
+              key={pizza.id}
+              name={pizza.name}
+              price={pizza.price}
+              ingredients={pizza.ingredients}
+              img={pizza.img}
+            />
+          ))}
+        </div>
       </div>
     </>
   );
