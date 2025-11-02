@@ -1,12 +1,11 @@
 import React from "react";
 import { useState } from "react";
 
-import "./RegisterPage.css";
+import "./LoginPage.css";
 
-const RegisterPage = () => {
+const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -17,7 +16,7 @@ const RegisterPage = () => {
 
     let message = "";
 
-    if (!email || !password || !confirmPassword) {
+    if (!email || !password) {
       message += message!="" ? "\n": "";
       message += "Por favor completa todos los campos.";
     }
@@ -26,17 +25,12 @@ const RegisterPage = () => {
 
     if (!emailRegex.test(email)) {
       message += message!="" ? "\n": "";
-      message += "Correo electrónico no válido";
+      message += "Correo electrónico no válido.";
     }
 
     if (password.length < 6) {
       message += message!="" ? "\n": "";
       message += "Las contraseñas debe tener al menos 6 caracteres.";
-    }
-
-    if (password !== confirmPassword) {
-      message += message!="" ? "\n": "";
-      message += "Las contraseñas no coinciden.";
     }
 
     if (message!="") {
@@ -45,13 +39,12 @@ const RegisterPage = () => {
       return;
     }
 
-    console.log("Usuario registrado:", { email, password });
+    console.log("Usuario logueado:", { email, password });
 
-    setSuccess("✅ Registro exitoso!");
-    alert("✅ Registro exitoso!");
+    setSuccess("✅ Ingreso exitoso!");
+    alert("✅ Ingreso exitoso!");
     setEmail("");
     setPassword("");
-    setConfirmPassword("");
   };
 
   return (
@@ -60,7 +53,7 @@ const RegisterPage = () => {
         className="card shadow-sm p-4"
         style={{ maxWidth: "400px", width: "100%" }}
       >
-        <h2 className="text-center mb-4">Registro</h2>
+        <h2 className="text-center mb-4">Login</h2>
 
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
@@ -85,24 +78,13 @@ const RegisterPage = () => {
             />
           </div>
 
-          <div className="mb-3">
-            <label className="form-label">Confirmar contraseña</label>
-            <input
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              className="form-control"
-              placeholder="********"
-            />
-          </div>
-
           {error && <p className="text-danger small text-center">{error}</p>}
           {success && (
             <p className="text-success small text-center">{success}</p>
           )}
 
           <button type="submit" className="btn btn-primary w-100">
-            Registrarse
+            Enviar
           </button>
         </form>
       </div>
@@ -110,4 +92,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default LoginPage;
