@@ -26,7 +26,14 @@ export default function CardPizza({ name, price, ingredients, img }) {
           {/* Ingredientes */}
           <div className="border-bottom pb-2 mb-3">
             <h6 className="fw-light mb-1 text-secondary">Ingredientes:</h6>
-            <p className="small text-muted mb-0">🍕 {ingredients.join(", ")}</p>
+            <p className="small text-muted mb-0">
+              <ul className="list-inline mb-3">
+                <li key='0' className="list-inline-item">🍕 </li>
+                {ingredients.map((ingrediente, index) => 
+                  <li key={index} className="list-inline-item">{ingrediente}</li>
+                )}
+              </ul>
+            </p>
           </div>
 
           {/* Precio */}

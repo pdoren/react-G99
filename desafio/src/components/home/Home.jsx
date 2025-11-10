@@ -12,7 +12,7 @@ const Home = () => {
     <>
       <Header />
       <div className="container py-5">
-        <div className="row justify-content-evenly">
+        <div className="row justify-content-evenly row-gap-3">
           {pizzas.map((pizza) => (
             <CardPizza
               key={pizza.id}
