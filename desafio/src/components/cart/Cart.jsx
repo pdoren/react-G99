@@ -34,7 +34,7 @@ const ItemCart = ({ id, name, price, count, img, updateCount }) => {
         </button>
         <p className="mb-0 fw-semibold">{count}</p>
         <button
-          class="btn btn-outline-primary"
+          className="btn btn-outline-primary"
           onClick={() => updateCount(id, +1)}
         >
           +
