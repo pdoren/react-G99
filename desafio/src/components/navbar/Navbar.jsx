@@ -1,6 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-import "./Navbar.css"
+import "./Navbar.css";
 
 const Navbar = () => {
   const total = 25000;
@@ -14,17 +15,25 @@ const Navbar = () => {
 
         <ul className="navbar-nav d-flex flex-row gap-2">
           <li className="nav-item">
-            <span className="badge bg-secondary p-2">Home</span>
+            <Link to="/" className="btn btn-outline-light py-1 px-2">
+              Home
+            </Link>
           </li>
           <li className="nav-item">
-            <span className="badge bg-secondary p-2">
+            <Link
+              to={!token ? "/login" : "/profile"}
+              className="btn btn-outline-light py-1 px-2"
+            >
               {!token ? "🔐 Login" : "🔓 Profile"}
-            </span>
+            </Link>
           </li>
           <li className="nav-item">
-            <span className="badge bg-secondary p-2">
+            <Link
+              to={!token ? "/register" : "/login"}
+              className="btn btn-outline-light py-1 px-2"
+            >
               {!token ? "🔐 Register" : "🔒 Logout"}
-            </span>
+            </Link>
           </li>
         </ul>
       </div>
@@ -32,9 +41,12 @@ const Navbar = () => {
       {/* Menú derecho */}
       <ul className="navbar-nav ms-auto">
         <li className="nav-item">
-          <span className="badge text-info border border-info p-2">
+          <Link
+            to="/cart"
+            className="btn btn-outline-secondary text-info border border-info py-1 px-2"
+          >
             🛒 Total: ${total.toLocaleString("es-CL")}
-          </span>
+          </Link>
         </li>
       </ul>
     </nav>

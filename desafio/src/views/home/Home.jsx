@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 
 // import { pizzas } from "../../data/pizzas";
 
-import Header from "../header/Header";
-import CardPizza from "../cardpizza/CardPizza";
+import Header from "../../components/header/Header";
+import CardPizza from "../../components/cardpizza/CardPizza";
 
 import "./Home.css";
 

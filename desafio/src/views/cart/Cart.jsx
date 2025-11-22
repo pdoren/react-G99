@@ -71,7 +71,10 @@ const Cart = () => {
   const total = cart.reduce((acc, item) => acc + item.price * item.count, 0);
 
   return (
-    <div className="d-flex flex-column align-items-left justify-content-left bg-light text-start py-5 px-5">
+    <div
+      className="d-flex flex-column align-items-left justify-content-left bg-light text-start py-5 px-5"
+      style={{ minHeight: "80vh" }}
+    >
       <h3>Detalles del Pedido:</h3>
 
       <form
