@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import { useCart } from "../../context/cart/CartProvider";
+
 import "./Navbar.css";
 
 const Navbar = () => {
-  const total = 25000;
+  const { getTotal } = useCart();
   const token = false;
 
   return (
@@ -45,7 +47,7 @@ const Navbar = () => {
             to="/cart"
             className="btn btn-outline-secondary text-info border border-info py-1 px-2"
           >
-            🛒 Total: ${total.toLocaleString("es-CL")}
+            🛒 Total: ${getTotal().toLocaleString("es-CL")}
           </Link>
         </li>
       </ul>

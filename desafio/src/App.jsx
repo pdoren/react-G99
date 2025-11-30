@@ -13,20 +13,24 @@ import Pizza from "./views/pizza/Pizza";
 import Profile from "./views/profile/Profile";
 import NonFound from "./views/404/NonFound";
 
+import CartProvider from "./context/cart/CartProvider";
+
 function App() {
   return (
     <>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/pizza/p001" element={<Pizza />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="*" element={<NonFound />} />
-      </Routes>
-      <Footer />
+      <CartProvider>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/pizza/:id" element={<Pizza />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="*" element={<NonFound />} />
+        </Routes>
+        <Footer />
+      </CartProvider>
     </>
   );
 }

@@ -1,12 +1,20 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
+import { useCart } from "../../context/cart/CartProvider";
 
 function Pizza() {
+
+  const { id } = useParams();
+
   const [pizza, setPizza] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const { addToCart } = useCart();
+
   useEffect(() => {
-    fetch("http://localhost:5000/api/pizzas/p001")
+    fetch(`http://localhost:5000/api/pizzas/${id}`)
       .then((res) => {
         if (!res.ok) throw new Error("Error al obtener la pizza");
         return res.json();
@@ -56,7 +64,7 @@ function Pizza() {
             </h4>
           </div>
           <div className="d-flex justify-content-end align-items-center">
-            <button className="btn btn-dark">Agregar al carrito 🛒</button>
+            <button className="btn btn-dark" onClick={() => addToCart(pizza, 1)}>Agregar al carrito 🛒</button>
           </div>
         </div>
       </div>

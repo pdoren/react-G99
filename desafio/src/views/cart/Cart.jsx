@@ -2,9 +2,10 @@ import React from "react";
 import { useState } from "react";
 
 import "./Cart.css";
-import { pizzaCart } from "../../data/pizzas";
+import { useCart } from "../../context/cart/CartProvider";
 
 const ItemCart = ({ id, name, price, count, img, updateCount }) => {
+
   return (
     <li className="d-flex align-items-center justify-content-left py-2 gap-2">
       <img
@@ -27,7 +28,7 @@ const ItemCart = ({ id, name, price, count, img, updateCount }) => {
       </div>
       <div className="d-flex align-items-center justify-content-left gap-3">
         <button
-          class="btn btn-outline-danger"
+          className="btn btn-outline-danger"
           onClick={() => updateCount(id, -1)}
         >
           −
@@ -45,30 +46,13 @@ const ItemCart = ({ id, name, price, count, img, updateCount }) => {
 };
 
 const Cart = () => {
-  const [cart, setCart] = useState(pizzaCart);
+  const { getTotal } = useCart();
+  const { updateCount } = useCart();
+  const { cart } = useCart();
 
   const handleSubmit = (e) => {
     e.preventDefault();
   };
-
-  const updateCount = (id, delta) => {
-    setCart(
-      (items) =>
-        items
-          .map((item) =>
-            item.id === id
-              ? {
-                  ...item,
-                  count: Math.max(item.count + delta, 0), // evita negativos
-                }
-              : item
-          )
-          .filter((pizza) => pizza.count > 0) // elimina las pizzas con count <= 0
-    );
-  };
-
-  // Calcular el total: suma de price * count
-  const total = cart.reduce((acc, item) => acc + item.price * item.count, 0);
 
   return (
     <div
@@ -87,12 +71,12 @@ const Cart = () => {
           <ul className="list-unstyled">
             {cart.map((item) => (
               <ItemCart
-                key={item.id}
-                id={item.id}
-                name={item.name}
-                price={item.price}
+                key={item.pizza.id}
+                id={item.pizza.id}
+                name={item.pizza.name}
+                price={item.pizza.price}
                 count={item.count}
-                img={item.img}
+                img={item.pizza.img}
                 updateCount={updateCount}
               />
             ))}
@@ -100,7 +84,7 @@ const Cart = () => {
         )}
 
         <div className="py-3">
-          <h2>Total: ${total.toLocaleString("es-CL")}</h2>
+          <h2>Total: ${getTotal().toLocaleString("es-CL")}</h2>
         </div>
         <div>
           <button type="submit" className="btn btn-primary">

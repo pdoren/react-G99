@@ -1,15 +1,22 @@
 import React from "react";
 
+import { Link } from "react-router-dom";
+
 import "./CardPizza.css";
 
-export default function CardPizza({ name, price, ingredients, img }) {
+import { useCart } from "../../context/cart/CartProvider";
+
+export default function CardPizza({ pizza }) {
+
+  const { addToCart } = useCart();
+
   return (
     <div className="col-12 col-sm-6 col-md-4">
       <div className="card shadow-sm h-100">
         {/* Imagen */}
         <img
-          src={img}
-          alt={`Pizza ${name}`}
+          src={pizza.img}
+          alt={`Pizza ${pizza.name}`}
           className="card-img-top"
           style={{ height: "200px", objectFit: "cover" }}
         />
@@ -19,7 +26,7 @@ export default function CardPizza({ name, price, ingredients, img }) {
           {/* Título */}
           <div className="border-bottom pb-2 mb-3">
             <h5 className="card-title text-start fw-semibold text-dark mb-0">
-              Pizza {name}
+              Pizza {pizza.name}
             </h5>
           </div>
 
@@ -31,7 +38,7 @@ export default function CardPizza({ name, price, ingredients, img }) {
                 <li key="0" className="list-inline-item">
                   🍕{" "}
                 </li>
-                {ingredients.map((ingrediente, index) => (
+                {pizza.ingredients.map((ingrediente, index) => (
                   <li key={index} className="list-inline-item">
                     {ingrediente}
                   </li>
@@ -42,13 +49,13 @@ export default function CardPizza({ name, price, ingredients, img }) {
 
           {/* Precio */}
           <p className="fw-bold fs-5 text-dark mb-3">
-            Precio: ${price.toLocaleString("es-CL")}
+            Precio: ${pizza.price.toLocaleString("es-CL")}
           </p>
 
           {/* Botones */}
           <div className="d-flex justify-content-evenly">
-            <button className="btn btn-outline-dark btn-sm">Ver Más 👀</button>
-            <button className="btn btn-dark btn-sm">Añadir 🛒</button>
+            <Link to={`/pizza/${pizza.id}`} className="btn btn-outline-dark btn-sm">Ver Más 👀</Link>
+            <button className="btn btn-dark btn-sm" onClick={() => addToCart(pizza, 1)}>Añadir 🛒</button>
           </div>
         </div>
       </div>
