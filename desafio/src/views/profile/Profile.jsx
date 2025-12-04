@@ -1,10 +1,13 @@
 import defaultUser from "../../../public/imgs/user.png";
+import { useUser } from "../../context/user/UserProvider";
 
 const Profile = () => {
   const email = "usuario@gmail.com";
+  const { logout } = useUser();
 
   function onLogout() {
     console.log("Logout");
+    logout();
   }
 
   return (

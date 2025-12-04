@@ -1,13 +1,15 @@
-import React from "react";
+import React, { use } from "react";
 import { Link } from "react-router-dom";
 
 import { useCart } from "../../context/cart/CartProvider";
+import { useUser } from "../../context/user/UserProvider";
 
 import "./Navbar.css";
 
 const Navbar = () => {
   const { getTotal } = useCart();
-  const token = false;
+  const { token } = useUser();
+  const { logout } = useUser(); // logout = desloguear
 
   return (
     <nav className="navbar navbar-expand bg-dark text-white px-3 py-2">
@@ -30,12 +32,15 @@ const Navbar = () => {
             </Link>
           </li>
           <li className="nav-item">
-            <Link
-              to={!token ? "/register" : "/login"}
-              className="btn btn-outline-light py-1 px-2"
-            >
-              {!token ? "🔐 Register" : "🔒 Logout"}
-            </Link>
+            {token ? (
+              <button className="btn btn-outline-light py-1 px-2" onClick={logout}>
+                🔒 Logout
+              </button>
+            ) : (
+              <Link to="/register" className="btn btn-outline-light py-1 px-2">
+                🔐 Register
+              </Link>
+            )}
           </li>
         </ul>
       </div>

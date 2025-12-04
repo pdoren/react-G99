@@ -3,6 +3,7 @@ import { useState } from "react";
 
 import "./Cart.css";
 import { useCart } from "../../context/cart/CartProvider";
+import { useUser } from "../../context/user/UserProvider";
 
 const ItemCart = ({ id, name, price, count, img, updateCount }) => {
 
@@ -49,6 +50,7 @@ const Cart = () => {
   const { getTotal } = useCart();
   const { updateCount } = useCart();
   const { cart } = useCart();
+  const { token } = useUser();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -87,7 +89,7 @@ const Cart = () => {
           <h2>Total: ${getTotal().toLocaleString("es-CL")}</h2>
         </div>
         <div>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className={`btn ${token ? "btn-primary" : "btn-secondary"}`}  disabled={!token}>
             Pagar
           </button>
         </div>

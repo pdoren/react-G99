@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 
 import "./App.css";
 
@@ -15,18 +15,31 @@ import NonFound from "./views/404/NonFound";
 
 import CartProvider from "./context/cart/CartProvider";
 
+import { useUser } from "./context/user/UserProvider";
+
 function App() {
+  const { token } = useUser();
+
   return (
     <>
       <CartProvider>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/register"
+            element={!token ? <RegisterPage /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/login"
+            element={!token ? <LoginPage /> : <Navigate to="/" />}
+          />
           <Route path="/cart" element={<Cart />} />
           <Route path="/pizza/:id" element={<Pizza />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route
+            path="/profile"
+            element={token ? <Profile /> : <Navigate to="/login" />}
+          />
           <Route path="*" element={<NonFound />} />
         </Routes>
         <Footer />
