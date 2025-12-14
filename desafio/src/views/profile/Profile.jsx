@@ -1,9 +1,23 @@
+import { useEffect } from "react";
+
 import defaultUser from "../../../public/imgs/user.png";
 import { useUser } from "../../context/user/UserProvider";
 
 const Profile = () => {
-  const email = "usuario@gmail.com";
-  const { logout } = useUser();
+  const { logout, email, token, login } = useUser();
+
+
+  useEffect(() => {
+    if (token) {
+      fetch("http://localhost:5000/api/auth/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => login(data));
+    }
+  }, []);
 
   function onLogout() {
     console.log("Logout");

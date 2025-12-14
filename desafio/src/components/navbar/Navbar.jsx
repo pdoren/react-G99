@@ -8,7 +8,7 @@ import "./Navbar.css";
 
 const Navbar = () => {
   const { getTotal } = useCart();
-  const { token } = useUser();
+  const { isLoginOK } = useUser();
   const { logout } = useUser(); // logout = desloguear
 
   return (
@@ -25,14 +25,14 @@ const Navbar = () => {
           </li>
           <li className="nav-item">
             <Link
-              to={!token ? "/login" : "/profile"}
+              to={!isLoginOK() ? "/login" : "/profile"}
               className="btn btn-outline-light py-1 px-2"
             >
-              {!token ? "🔐 Login" : "🔓 Profile"}
+              {!isLoginOK() ? "🔐 Login" : "🔓 Profile"}
             </Link>
           </li>
           <li className="nav-item">
-            {token ? (
+            {isLoginOK() ? (
               <button className="btn btn-outline-light py-1 px-2" onClick={logout}>
                 🔒 Logout
               </button>

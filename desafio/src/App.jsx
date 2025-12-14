@@ -18,7 +18,7 @@ import CartProvider from "./context/cart/CartProvider";
 import { useUser } from "./context/user/UserProvider";
 
 function App() {
-  const { token } = useUser();
+  const { isLoginOK } = useUser();
 
   return (
     <>
@@ -28,17 +28,17 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route
             path="/register"
-            element={!token ? <RegisterPage /> : <Navigate to="/" />}
+            element={!isLoginOK() ? <RegisterPage /> : <Navigate to="/" />}
           />
           <Route
             path="/login"
-            element={!token ? <LoginPage /> : <Navigate to="/" />}
+            element={!isLoginOK() ? <LoginPage /> : <Navigate to="/" />}
           />
           <Route path="/cart" element={<Cart />} />
           <Route path="/pizza/:id" element={<Pizza />} />
           <Route
             path="/profile"
-            element={token ? <Profile /> : <Navigate to="/login" />}
+            element={isLoginOK() ? <Profile /> : <Navigate to="/login" />}
           />
           <Route path="*" element={<NonFound />} />
         </Routes>

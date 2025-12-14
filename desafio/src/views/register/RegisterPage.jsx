@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 
+import { useUser } from "../../context/user/UserProvider";
+
 import "./RegisterPage.css";
 
 const RegisterPage = () => {
@@ -10,7 +12,9 @@ const RegisterPage = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  const handleSubmit = (e) => {
+  const { register } = useUser();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setSuccess("");
@@ -45,13 +49,37 @@ const RegisterPage = () => {
       return;
     }
 
-    console.log("Usuario registrado:", { email, password });
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
 
-    setSuccess("✅ Registro exitoso!");
-    alert("✅ Registro exitoso!");
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data?.error || "Error al registrar usuario");
+      }
+
+      // Guardar token solo si el registro fue exitoso
+      register(data);
+
+      setSuccess("✅ Registro exitoso!");
+      alert("✅ Registro exitoso!");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
+    } catch (error) {
+      setError(error.message);
+      alert(`❌ ${error.message}`);
+      return;
+    }
   };
 
   return (

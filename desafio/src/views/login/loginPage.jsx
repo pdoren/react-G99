@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 
+import { useUser } from "../../context/user/UserProvider";
+
 import "./LoginPage.css";
 
 const LoginPage = () => {
@@ -9,7 +11,9 @@ const LoginPage = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  const handleSubmit = (e) => {
+  const { login } = useUser();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setSuccess("");
@@ -39,12 +43,41 @@ const LoginPage = () => {
       return;
     }
 
-    console.log("Usuario logueado:", { email, password });
+    console.log(JSON.stringify({
+          email,
+          password,
+        }));
 
-    setSuccess("✅ Ingreso exitoso!");
-    alert("✅ Ingreso exitoso!");
-    setEmail("");
-    setPassword("");
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data?.error || "Error al iniciar sesión");
+      }
+
+      // Guardar token solo si el login fue exitoso
+      login(data);
+
+      setSuccess("✅ Ingreso exitoso!");
+      alert("✅ Ingreso exitoso!");
+      setEmail("");
+      setPassword("");
+    } catch (error) {
+      setError(error.message);
+      alert(`❌ ${error.message}`);
+      return;
+    }
   };
 
   return (

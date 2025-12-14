@@ -6,7 +6,6 @@ import { useCart } from "../../context/cart/CartProvider";
 import { useUser } from "../../context/user/UserProvider";
 
 const ItemCart = ({ id, name, price, count, img, updateCount }) => {
-
   return (
     <li className="d-flex align-items-center justify-content-left py-2 gap-2">
       <img
@@ -50,10 +49,41 @@ const Cart = () => {
   const { getTotal } = useCart();
   const { updateCount } = useCart();
   const { cart } = useCart();
-  const { token } = useUser();
+  const { isLoginOK, token } = useUser();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      console.log(token)
+      if (!token) {
+        alert("❌ Debes iniciar sesión para pagar");
+        return;
+      }
+
+      const response = await fetch("http://localhost:5000/api/checkouts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          cart: cart,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data?.error || "Error al generar el pedido");
+      }
+
+      alert("✅ Pedido exitoso!");
+
+    } catch (error) {
+      alert(`❌ ${error.message}`);
+      return;
+    }
   };
 
   return (
@@ -89,7 +119,11 @@ const Cart = () => {
           <h2>Total: ${getTotal().toLocaleString("es-CL")}</h2>
         </div>
         <div>
-          <button type="submit" className={`btn ${token ? "btn-primary" : "btn-secondary"}`}  disabled={!token}>
+          <button
+            type="submit"
+            className={`btn ${isLoginOK() ? "btn-primary" : "btn-secondary"}`}
+            disabled={!isLoginOK()}
+          >
             Pagar
           </button>
         </div>

@@ -3,18 +3,30 @@ import { useState, createContext, useContext } from "react";
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [token, setToken] = useState(true); // true = token valido por defecto
+  const [token, setToken] = useState(null); // null = token invalido por defecto
+  const [email, setEmail] = useState(null);
 
-  const login = (token) => {
-    setToken(token);
+  const login = (data) => {
+    setToken(data.token);
+    setEmail(data.email);
+  };
+
+  const register = (data) => {
+    setToken(data.token);
+    setEmail(data.email);
+  };
+
+  const isLoginOK = () => {
+    return token !== null;
   };
 
   const logout = () => {
-    setToken(false);
+    setToken(null);
+    setEmail(null);
   };
 
   return (
-    <UserContext.Provider value={{ token, login, logout }}>
+    <UserContext.Provider value={{ token, email, login, register, logout, isLoginOK }}>
       {children}
     </UserContext.Provider>
   );
